@@ -409,12 +409,16 @@
             }
 
             /* Badges */
-            .badges-track img {
-                height: 90px;
+            .badges-track {
+                gap: 12px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding: 0 4px;
             }
 
-            .badges-track {
-                gap: 30px;
+            .badges-track img {
+                height: 60px;
+                flex-shrink: 0;
             }
 
             /* Contact */
