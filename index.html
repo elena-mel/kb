@@ -273,21 +273,34 @@
             max-width: 850px;
         }
 
-        .image-wrapper img {
+        .image-wrapper {
+            position: relative;
             width: 100%;
-            max-width: 650px;
-            max-height: 75vh;
+            max-width: 850px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: calc(100vh - 120px);
+            object-fit: contain;
+            object-position: bottom center;
             position: relative;
             z-index: 2;
-            object-fit: contain;
             filter: drop-shadow(0 20px 40px rgba(45, 27, 107, 0.25));
-            display: block;
-            margin: 0 auto -5px auto;
+            margin-bottom: -5px;
         }
 
         @media (max-width: 768px) {
+            .image-wrapper {
+                width: 100%;
+            }
             .image-wrapper img {
-                max-height: none;
+                width: 100%;
+                height: auto;
                 max-width: 100%;
                 margin-bottom: -6px;
             }
@@ -1024,7 +1037,7 @@
             <h1>Let's Make Your Business <span class="highlight">More Profitable.</span></h1>
             <p class="subtitle">We handle the bookkeeping. We bring the strategy. You see the growth.</p>
             <a href="https://calendly.com/keepbookers/new-client-consultation" target="_blank" class="cta-button">
-                Book Your Free Strategy Call
+                Book Your Free Discovery Call
             </a>
         </div>
 
@@ -1171,7 +1184,7 @@
             </div>
 
             <a href="https://calendly.com/keepbookers/new-client-consultation" target="_blank" class="cta-button">
-                Book a free strategy call
+                Book a free discovery call
             </a>
         </div>
     </section>
