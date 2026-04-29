@@ -6,7 +6,7 @@
     <title>KeepBookers | Profitability & Strategy</title>
     <!-- Modern Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             /* KeepBookers Brand Colors */
@@ -87,9 +87,71 @@
             font-size: 1rem;
             transition: color 0.3s;
         }
-        
+
         .social-links a:hover {
             color: var(--accent);
+        }
+
+        /* Hamburger button — hidden on desktop */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            justify-self: end;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* Mobile fullscreen nav overlay */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--text-main);
+            z-index: 200;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 28px;
+            right: 28px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
         }
 
         /* Hero Section */
@@ -257,38 +319,158 @@
         }
 
         @media (max-width: 768px) {
+            /* Navbar mobile */
+            .navbar {
+                grid-template-columns: 1fr auto;
+                padding: 0 5%;
+            }
+
+            .nav-links,
+            .social-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .logo img {
+                height: 70px;
+            }
+
+            /* Hero mobile */
             .hero {
                 flex-direction: column;
                 text-align: center;
-                padding-top: 140px;
-                padding-bottom: 60px;
-            }
-            
-            .navbar {
-                justify-content: center;
+                padding: 100px 6% 60px;
+                min-height: auto;
             }
 
             .hero-content {
-                margin-bottom: 4rem;
+                max-width: 100%;
+                padding-bottom: 0;
+                margin-bottom: 2.5rem;
+                align-items: center;
             }
-            
+
             .hero-content h1 {
-                font-size: 3rem;
+                font-size: 2.8rem;
             }
-            
+
+            .hero-content .subtitle {
+                font-size: 1.2rem;
+            }
+
             .hero-image {
                 justify-content: center;
                 width: 100%;
                 padding-left: 0;
             }
+
+            .image-wrapper img {
+                max-height: 55vw;
+            }
+
+            /* Section padding */
+            .services-section {
+                padding: 70px 6%;
+            }
+
+            .about-section {
+                padding: 70px 6%;
+            }
+
+            .testimonials-section {
+                padding: 70px 6%;
+            }
+
+            .badges-section {
+                padding: 50px 6%;
+            }
+
+            /* Services title */
+            .services-title {
+                font-size: 2.2rem;
+            }
+
+            /* Testimonials title */
+            .testimonials-title {
+                font-size: 2.2rem;
+            }
+
+            /* Badges */
+            .badges-track img {
+                height: 90px;
+            }
+
+            .badges-track {
+                gap: 30px;
+            }
+
+            /* Contact */
+            .contact-section {
+                flex-direction: column-reverse;
+                gap: 40px;
+                padding: 60px 6%;
+            }
+
+            .contact-content,
+            .contact-image {
+                flex: 0 0 100%;
+                width: 100%;
+            }
+
+            .contact-title {
+                font-size: 2.2rem;
+            }
         }
 
         @media (max-width: 480px) {
             .hero-content h1 {
-                font-size: 2.5rem;
+                font-size: 2.1rem;
+                letter-spacing: -0.5px;
             }
+
             .hero-content .subtitle {
-                font-size: 1.2rem;
+                font-size: 1.05rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                font-size: 1rem;
+                padding: 1rem 1.5rem;
+            }
+
+            .services-title {
+                font-size: 1.8rem;
+            }
+
+            .testimonials-title {
+                font-size: 1.8rem;
+            }
+
+            .contact-title {
+                font-size: 1.8rem;
+            }
+
+            .about-block h2 {
+                font-size: 1.8rem;
+            }
+
+            .badges-track img {
+                height: 70px;
+            }
+
+            .badges-track {
+                gap: 20px;
+            }
+
+            .testimonial-card {
+                padding: 28px 20px;
+            }
+
+            .testimonial-text {
+                font-size: 1rem;
             }
         }
 
@@ -369,7 +551,7 @@
             line-height: 1.7;
             margin-bottom: 15px;
         }
-        
+
         .service-item p:last-of-type {
             margin-bottom: 0;
         }
@@ -406,15 +588,10 @@
             font-size: 1.05rem;
         }
 
-
-        @media (max-width: 992px) {
-            .services-content {
-                margin-bottom: 0;
-            }
-        }
         @media (max-width: 600px) {
             .services-grid {
                 grid-template-columns: 1fr;
+                gap: 24px;
             }
         }
 
@@ -540,8 +717,8 @@
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .testimonial-card {
@@ -671,7 +848,7 @@
             display: block;
             margin-bottom: 10px;
         }
-        
+
         .contact-info a:hover {
             text-decoration: underline;
         }
@@ -702,17 +879,6 @@
             color: white;
             text-decoration: none;
         }
-
-        @media (max-width: 992px) {
-            .contact-section {
-                flex-direction: column-reverse;
-                gap: 40px;
-            }
-            .contact-content, .contact-image {
-                flex: 0 0 100%;
-                width: 100%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -732,7 +898,21 @@
             <a href="https://www.instagram.com/keepbookers/" target="_blank">I</a>
             <a href="https://linkedin.com/in/elena-kritopulos" target="_blank">L</a>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
+
+    <!-- Mobile nav overlay -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">✕</button>
+        <a href="#services" onclick="closeMobileNav()">Services</a>
+        <a href="#about" onclick="closeMobileNav()">About</a>
+        <a href="#testimonials" onclick="closeMobileNav()">Testimonials</a>
+        <a href="#contact" onclick="closeMobileNav()">Contact us</a>
+    </div>
 
     <main class="hero">
         <div class="hero-content">
@@ -742,7 +922,7 @@
                 Book Your Free Strategy Call
             </a>
         </div>
-        
+
         <div class="hero-image">
             <div class="image-wrapper">
                 <img src="image-hero.png" alt="Elena - KeepBookers CFO">
@@ -756,7 +936,7 @@
         <div class="services-content">
             <h2 class="services-title">Our Services</h2>
             <div class="services-divider"></div>
-            
+
             <div class="services-grid">
                 <!-- Service 1 -->
                 <div class="service-item">
@@ -798,7 +978,7 @@
                     <p>We exist to change that.</p>
                     <p>KeepBookers is a bookkeeping and advisory firm built for small business owners who are ready to stop guessing and start making confident decisions. We keep your books clean, your reports accurate, and your finances visible. And then we help you understand what you are actually looking at.</p>
                 </div>
-                
+
                 <div class="about-block">
                     <h2>About Our Founder</h2>
                     <div class="about-divider"></div>
@@ -807,7 +987,7 @@
                     <p>What sets Elena apart is not just her expertise. It is how she works with people. She has seen firsthand how much changes for a business owner when the numbers finally make sense. When the anxiety around money is replaced with understanding. When decisions that used to feel overwhelming start to feel clear. That transformation is what drives everything she does.</p>
                 </div>
             </div>
-            
+
             <div class="about-image">
                 <div class="about-image-wrapper">
                     <img src="image-about.png" alt="Elena Kritopulos - KeepBookers Founder">
@@ -821,7 +1001,7 @@
         <div class="testimonials-container">
             <h2 class="testimonials-title">What Our Clients Say</h2>
             <div class="testimonials-divider"></div>
-            
+
             <div class="testimonials-grid">
                 <!-- Testimonial 1 -->
                 <div class="testimonial-card">
@@ -853,20 +1033,20 @@
         <div class="contact-content">
             <h2 class="contact-title">Contact us</h2>
             <div class="contact-divider"></div>
-            
+
             <div class="contact-info">
                 <p>Have questions or ready to get started? Reach out to us directly.</p>
                 <br>
                 <a href="tel:7082887381">📞 708-288-7381</a>
                 <a href="mailto:support@keepbookers.com">✉️ support@keepbookers.com</a>
-                
+
                 <div class="contact-socials">
                     <a href="https://www.facebook.com/KeepBookers" target="_blank">F</a>
                     <a href="https://www.instagram.com/keepbookers/" target="_blank">I</a>
                     <a href="https://linkedin.com/in/elena-kritopulos" target="_blank">L</a>
                 </div>
             </div>
-            
+
             <a href="https://calendly.com/keepbookers/new-client-consultation" target="_blank" class="cta-button">
                 Book a free strategy call
             </a>
@@ -882,6 +1062,19 @@
             <img src="quickbooks-online-payroll-certification.png" alt="QBO Payroll">
         </div>
     </section>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileNavClose = document.getElementById('mobileNavClose');
+
+        hamburger.addEventListener('click', () => mobileNav.classList.add('open'));
+        mobileNavClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+        }
+    </script>
 
 </body>
 </html>
