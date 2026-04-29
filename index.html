@@ -702,7 +702,7 @@
         }
 
         .testimonials-container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -721,44 +721,133 @@
             border-radius: 2px;
         }
 
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+        /* Carousel */
+        .carousel {
+            position: relative;
+        }
+
+        .carousel-track {
+            position: relative;
+            min-height: 320px;
         }
 
         .testimonial-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 40px 30px;
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 50px 50px 40px;
+            border-radius: 20px;
             text-align: left;
-            transition: transform 0.3s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
         }
 
-        .testimonial-card:hover {
-            transform: translateY(-5px);
+        .testimonial-card.active {
+            opacity: 1;
+            position: relative;
+            pointer-events: auto;
         }
 
         .stars {
             color: #FFD700;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 20px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .testimonial-text {
             font-size: 1.1rem;
-            line-height: 1.7;
+            line-height: 1.8;
             color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             font-style: italic;
         }
 
-        .testimonial-author {
+        .testimonial-author-name {
             font-size: 1.1rem;
             font-weight: 700;
             color: var(--accent);
+            display: block;
+        }
+
+        .testimonial-author-meta {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.45);
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Carousel dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 36px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: var(--accent);
+            transform: scale(1.3);
+        }
+
+        /* Prev / Next arrows */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(255,255,255,0.14);
+        }
+
+        .carousel-arrow.prev { left: -60px; }
+        .carousel-arrow.next { right: -60px; }
+
+        @media (max-width: 900px) {
+            .carousel-arrow { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .testimonial-card {
+                padding: 32px 24px 28px;
+            }
+            .testimonial-text {
+                font-size: 1rem;
+            }
+            .carousel-track {
+                min-height: 420px;
+            }
         }
 
         /* Badges Section */
@@ -1020,24 +1109,38 @@
             <h2 class="testimonials-title">What Our Clients Say</h2>
             <div class="testimonials-divider"></div>
 
-            <div class="testimonials-grid">
-                <!-- Testimonial 1 -->
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">"Simply put, Elena has been a blessing. Our books have been messed up since I took over the company 6 years ago. We have gone through many different bookkeepers, all to no avail. Bad responsiveness, invoices sent without the work actually being done, inability to reconcile on a monthly basis — the list goes on. Elena stepped in and completely reconciled our many accounts for the entire 2023 year, and then went to work on 2024. I can't say it enough how wonderful it is to work with Elena. If you need someone who really knows QuickBooks and understands what numbers and codes go where, Elena is the pro for you."</p>
-                    <p class="testimonial-author">- Paul Gaertner, DetectAPro <span style="opacity:0.6; font-weight:400; font-size:0.95rem;">| Food &amp; Pharmaceutical Safety Products</span></p>
+            <div class="carousel">
+                <button class="carousel-arrow prev" id="prevBtn" aria-label="Previous">&#8592;</button>
+                <button class="carousel-arrow next" id="nextBtn" aria-label="Next">&#8594;</button>
+
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card active">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Simply put, Elena has been a blessing. Our books have been messed up since I took over the company 6 years ago. We have gone through many different bookkeepers, all to no avail. Bad responsiveness, invoices sent without the work actually being done, inability to reconcile on a monthly basis — the list goes on. Elena stepped in and completely reconciled our many accounts for the entire 2023 year, and then went to work on 2024. I can't say it enough how wonderful it is to work with Elena. If you need someone who really knows QuickBooks and understands what numbers and codes go where, Elena is the pro for you."</p>
+                        <span class="testimonial-author-name">Paul Gaertner</span>
+                        <span class="testimonial-author-meta">DetectAPro &middot; Food &amp; Pharmaceutical Safety Products</span>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"I highly recommend KeepBookers for all of your bookkeeping needs! Their attention to detail, professionalism, and thorough understanding of bookkeeping have made managing our business finances much easier and stress free!"</p>
+                        <span class="testimonial-author-name">Christiane Sola</span>
+                        <span class="testimonial-author-meta">Chicago School of Musical Arts &middot; Music Education</span>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Elena from KeepBookers.com is an absolute gem! From the moment we started working together, she has gone above and beyond to provide exceptional support. Her attention to detail is unmatched — she catches things I would have completely missed and keeps everything perfectly organized. Elena is not only incredibly knowledgeable, but also professional, responsive, and easy to work with. She took the time to truly understand my business and tailored her approach to meet my needs. I've never felt more confident that my books are accurate and in expert hands. If you're looking for a bookkeeper who is sharp, dependable, and truly invested in your success, look no further than Elena. She is simply outstanding!"</p>
+                        <span class="testimonial-author-name">Stephen W.</span>
+                        <span class="testimonial-author-meta">Retail &middot; Shed Sales</span>
+                    </div>
                 </div>
-                <!-- Testimonial 2 -->
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">"I highly recommend KeepBookers for all of your bookkeeping needs! Their attention to detail, professionalism, and thorough understanding of bookkeeping have made managing our business finances much easier and stress free!"</p>
-                    <p class="testimonial-author">- Christiane Sola, Chicago School of Musical Arts <span style="opacity:0.6; font-weight:400; font-size:0.95rem;">| Music Education</span></p>
-                </div>
-                <!-- Testimonial 3 -->
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">"Elena from KeepBookers.com is an absolute gem! From the moment we started working together, she has gone above and beyond to provide exceptional support. Her attention to detail is unmatched — she catches things I would have completely missed and keeps everything perfectly organized. Elena is not only incredibly knowledgeable, but also professional, responsive, and easy to work with. She took the time to truly understand my business and tailored her approach to meet my needs. I've never felt more confident that my books are accurate and in expert hands. If you're looking for a bookkeeper who is sharp, dependable, and truly invested in your success, look no further than Elena. She is simply outstanding!"</p>
-                    <p class="testimonial-author">- Stephen W. <span style="opacity:0.6; font-weight:400; font-size:0.95rem;">| Retail, Shed Sales</span></p>
+
+                <div class="carousel-dots" id="carouselDots">
+                    <button class="carousel-dot active" data-index="0" aria-label="Review 1"></button>
+                    <button class="carousel-dot" data-index="1" aria-label="Review 2"></button>
+                    <button class="carousel-dot" data-index="2" aria-label="Review 3"></button>
                 </div>
             </div>
         </div>
@@ -1088,6 +1191,39 @@
     </section>
 
     <script>
+        // Carousel
+        const cards = document.querySelectorAll('.testimonial-card');
+        const dots = document.querySelectorAll('.carousel-dot');
+        let current = 0;
+        let autoplay;
+
+        function goTo(index) {
+            cards[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (index + cards.length) % cards.length;
+            cards[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        function startAutoplay() {
+            autoplay = setInterval(() => goTo(current + 1), 5000);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoplay);
+            startAutoplay();
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
+        document.getElementById('nextBtn').addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
+        dots.forEach(dot => dot.addEventListener('click', () => { goTo(+dot.dataset.index); resetAutoplay(); }));
+
+        document.querySelector('.carousel').addEventListener('mouseenter', () => clearInterval(autoplay));
+        document.querySelector('.carousel').addEventListener('mouseleave', startAutoplay);
+
+        startAutoplay();
+
+        // Hamburger
         const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobileNav');
         const mobileNavClose = document.getElementById('mobileNavClose');
