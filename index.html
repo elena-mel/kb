@@ -52,7 +52,7 @@
         }
 
         .logo img {
-            height: 160px;
+            height: 80px;
             object-fit: contain;
         }
 
@@ -422,16 +422,22 @@
             }
 
             /* Badges */
+            .badges-section {
+                padding: 40px 4%;
+            }
+
             .badges-track {
-                gap: 12px;
+                gap: 8px;
                 flex-wrap: nowrap;
-                overflow-x: auto;
-                padding: 0 4px;
+                justify-content: space-between;
+                overflow: visible;
             }
 
             .badges-track img {
-                height: 60px;
-                flex-shrink: 0;
+                height: 52px;
+                flex: 1 1 0;
+                width: 0;
+                object-fit: contain;
             }
 
             /* Contact */
@@ -484,13 +490,6 @@
                 font-size: 1.8rem;
             }
 
-            .badges-track img {
-                height: 70px;
-            }
-
-            .badges-track {
-                gap: 20px;
-            }
 
             .testimonial-card {
                 padding: 28px 20px;
