@@ -807,35 +807,25 @@
             transform: scale(1.3);
         }
 
-        /* Prev / Next arrows */
+        /* Prev / Next arrows — inline with dots */
         .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.1);
             color: white;
-            width: 44px;
-            height: 44px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: background 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
+            flex-shrink: 0;
         }
 
         .carousel-arrow:hover {
-            background: rgba(255,255,255,0.14);
-        }
-
-        .carousel-arrow.prev { left: -60px; }
-        .carousel-arrow.next { right: -60px; }
-
-        @media (max-width: 900px) {
-            .carousel-arrow { display: none; }
+            background: rgba(255,255,255,0.18);
         }
 
         @media (max-width: 480px) {
@@ -1110,9 +1100,6 @@
             <div class="testimonials-divider"></div>
 
             <div class="carousel">
-                <button class="carousel-arrow prev" id="prevBtn" aria-label="Previous">&#8592;</button>
-                <button class="carousel-arrow next" id="nextBtn" aria-label="Next">&#8594;</button>
-
                 <div class="carousel-track" id="carouselTrack">
                     <!-- Testimonial 1 -->
                     <div class="testimonial-card active">
@@ -1138,9 +1125,11 @@
                 </div>
 
                 <div class="carousel-dots" id="carouselDots">
+                    <button class="carousel-arrow prev" id="prevBtn" aria-label="Previous">&#8592;</button>
                     <button class="carousel-dot active" data-index="0" aria-label="Review 1"></button>
                     <button class="carousel-dot" data-index="1" aria-label="Review 2"></button>
                     <button class="carousel-dot" data-index="2" aria-label="Review 3"></button>
+                    <button class="carousel-arrow next" id="nextBtn" aria-label="Next">&#8594;</button>
                 </div>
             </div>
         </div>
@@ -1195,7 +1184,6 @@
         const cards = document.querySelectorAll('.testimonial-card');
         const dots = document.querySelectorAll('.carousel-dot');
         let current = 0;
-        let autoplay;
 
         function goTo(index) {
             cards[current].classList.remove('active');
@@ -1205,23 +1193,9 @@
             dots[current].classList.add('active');
         }
 
-        function startAutoplay() {
-            autoplay = setInterval(() => goTo(current + 1), 5000);
-        }
-
-        function resetAutoplay() {
-            clearInterval(autoplay);
-            startAutoplay();
-        }
-
-        document.getElementById('prevBtn').addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
-        document.getElementById('nextBtn').addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
-        dots.forEach(dot => dot.addEventListener('click', () => { goTo(+dot.dataset.index); resetAutoplay(); }));
-
-        document.querySelector('.carousel').addEventListener('mouseenter', () => clearInterval(autoplay));
-        document.querySelector('.carousel').addEventListener('mouseleave', startAutoplay);
-
-        startAutoplay();
+        document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+        document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+        dots.forEach(dot => dot.addEventListener('click', () => goTo(+dot.dataset.index)));
 
         // Hamburger
         const hamburger = document.getElementById('hamburger');
